@@ -1,0 +1,407 @@
+[
+  {
+    "name": "Delhi",
+    "state": "Delhi",
+    "aqi": 178
+  },
+  {
+    "name": "New Delhi",
+    "state": "Delhi",
+    "aqi": 182
+  },
+  {
+    "name": "Noida",
+    "state": "Uttar Pradesh",
+    "aqi": 168
+  },
+  {
+    "name": "Ghaziabad",
+    "state": "Uttar Pradesh",
+    "aqi": 186
+  },
+  {
+    "name": "Gurugram",
+    "state": "Haryana",
+    "aqi": 159
+  },
+  {
+    "name": "Faridabad",
+    "state": "Haryana",
+    "aqi": 171
+  },
+  {
+    "name": "Lucknow",
+    "state": "Uttar Pradesh",
+    "aqi": 152
+  },
+  {
+    "name": "Kanpur",
+    "state": "Uttar Pradesh",
+    "aqi": 174
+  },
+  {
+    "name": "Agra",
+    "state": "Uttar Pradesh",
+    "aqi": 148
+  },
+  {
+    "name": "Varanasi",
+    "state": "Uttar Pradesh",
+    "aqi": 156
+  },
+  {
+    "name": "Meerut",
+    "state": "Uttar Pradesh",
+    "aqi": 162
+  },
+  {
+    "name": "Prayagraj",
+    "state": "Uttar Pradesh",
+    "aqi": 150
+  },
+  {
+    "name": "Patna",
+    "state": "Bihar",
+    "aqi": 165
+  },
+  {
+    "name": "Gaya",
+    "state": "Bihar",
+    "aqi": 158
+  },
+  {
+    "name": "Muzaffarpur",
+    "state": "Bihar",
+    "aqi": 160
+  },
+  {
+    "name": "Jaipur",
+    "state": "Rajasthan",
+    "aqi": 138
+  },
+  {
+    "name": "Jodhpur",
+    "state": "Rajasthan",
+    "aqi": 122
+  },
+  {
+    "name": "Kota",
+    "state": "Rajasthan",
+    "aqi": 130
+  },
+  {
+    "name": "Bikaner",
+    "state": "Rajasthan",
+    "aqi": 118
+  },
+  {
+    "name": "Ajmer",
+    "state": "Rajasthan",
+    "aqi": 112
+  },
+  {
+    "name": "Chandigarh",
+    "state": "Chandigarh",
+    "aqi": 116
+  },
+  {
+    "name": "Amritsar",
+    "state": "Punjab",
+    "aqi": 142
+  },
+  {
+    "name": "Ludhiana",
+    "state": "Punjab",
+    "aqi": 148
+  },
+  {
+    "name": "Jalandhar",
+    "state": "Punjab",
+    "aqi": 132
+  },
+  {
+    "name": "Bhopal",
+    "state": "Madhya Pradesh",
+    "aqi": 108
+  },
+  {
+    "name": "Indore",
+    "state": "Madhya Pradesh",
+    "aqi": 102
+  },
+  {
+    "name": "Gwalior",
+    "state": "Madhya Pradesh",
+    "aqi": 144
+  },
+  {
+    "name": "Jabalpur",
+    "state": "Madhya Pradesh",
+    "aqi": 110
+  },
+  {
+    "name": "Ujjain",
+    "state": "Madhya Pradesh",
+    "aqi": 98
+  },
+  {
+    "name": "Ahmedabad",
+    "state": "Gujarat",
+    "aqi": 116
+  },
+  {
+    "name": "Surat",
+    "state": "Gujarat",
+    "aqi": 104
+  },
+  {
+    "name": "Vadodara",
+    "state": "Gujarat",
+    "aqi": 99
+  },
+  {
+    "name": "Rajkot",
+    "state": "Gujarat",
+    "aqi": 95
+  },
+  {
+    "name": "Mumbai",
+    "state": "Maharashtra",
+    "aqi": 92
+  },
+  {
+    "name": "Pune",
+    "state": "Maharashtra",
+    "aqi": 84
+  },
+  {
+    "name": "Nagpur",
+    "state": "Maharashtra",
+    "aqi": 96
+  },
+  {
+    "name": "Nashik",
+    "state": "Maharashtra",
+    "aqi": 82
+  },
+  {
+    "name": "Aurangabad",
+    "state": "Maharashtra",
+    "aqi": 88
+  },
+  {
+    "name": "Thane",
+    "state": "Maharashtra",
+    "aqi": 94
+  },
+  {
+    "name": "Kolkata",
+    "state": "West Bengal",
+    "aqi": 124
+  },
+  {
+    "name": "Howrah",
+    "state": "West Bengal",
+    "aqi": 128
+  },
+  {
+    "name": "Asansol",
+    "state": "West Bengal",
+    "aqi": 134
+  },
+  {
+    "name": "Siliguri",
+    "state": "West Bengal",
+    "aqi": 110
+  },
+  {
+    "name": "Durgapur",
+    "state": "West Bengal",
+    "aqi": 130
+  },
+  {
+    "name": "Ranchi",
+    "state": "Jharkhand",
+    "aqi": 118
+  },
+  {
+    "name": "Jamshedpur",
+    "state": "Jharkhand",
+    "aqi": 126
+  },
+  {
+    "name": "Dhanbad",
+    "state": "Jharkhand",
+    "aqi": 152
+  },
+  {
+    "name": "Bhubaneswar",
+    "state": "Odisha",
+    "aqi": 96
+  },
+  {
+    "name": "Cuttack",
+    "state": "Odisha",
+    "aqi": 100
+  },
+  {
+    "name": "Raipur",
+    "state": "Chhattisgarh",
+    "aqi": 128
+  },
+  {
+    "name": "Bhilai",
+    "state": "Chhattisgarh",
+    "aqi": 120
+  },
+  {
+    "name": "Hyderabad",
+    "state": "Telangana",
+    "aqi": 78
+  },
+  {
+    "name": "Warangal",
+    "state": "Telangana",
+    "aqi": 84
+  },
+  {
+    "name": "Visakhapatnam",
+    "state": "Andhra Pradesh",
+    "aqi": 80
+  },
+  {
+    "name": "Vijayawada",
+    "state": "Andhra Pradesh",
+    "aqi": 86
+  },
+  {
+    "name": "Guntur",
+    "state": "Andhra Pradesh",
+    "aqi": 88
+  },
+  {
+    "name": "Bengaluru",
+    "state": "Karnataka",
+    "aqi": 72
+  },
+  {
+    "name": "Mysuru",
+    "state": "Karnataka",
+    "aqi": 64
+  },
+  {
+    "name": "Hubballi",
+    "state": "Karnataka",
+    "aqi": 78
+  },
+  {
+    "name": "Mangaluru",
+    "state": "Karnataka",
+    "aqi": 58
+  },
+  {
+    "name": "Chennai",
+    "state": "Tamil Nadu",
+    "aqi": 76
+  },
+  {
+    "name": "Coimbatore",
+    "state": "Tamil Nadu",
+    "aqi": 68
+  },
+  {
+    "name": "Madurai",
+    "state": "Tamil Nadu",
+    "aqi": 72
+  },
+  {
+    "name": "Tiruchirappalli",
+    "state": "Tamil Nadu",
+    "aqi": 74
+  },
+  {
+    "name": "Salem",
+    "state": "Tamil Nadu",
+    "aqi": 70
+  },
+  {
+    "name": "Kochi",
+    "state": "Kerala",
+    "aqi": 60
+  },
+  {
+    "name": "Thiruvananthapuram",
+    "state": "Kerala",
+    "aqi": 56
+  },
+  {
+    "name": "Kozhikode",
+    "state": "Kerala",
+    "aqi": 58
+  },
+  {
+    "name": "Thrissur",
+    "state": "Kerala",
+    "aqi": 62
+  },
+  {
+    "name": "Guwahati",
+    "state": "Assam",
+    "aqi": 108
+  },
+  {
+    "name": "Shillong",
+    "state": "Meghalaya",
+    "aqi": 52
+  },
+  {
+    "name": "Imphal",
+    "state": "Manipur",
+    "aqi": 64
+  },
+  {
+    "name": "Agartala",
+    "state": "Tripura",
+    "aqi": 88
+  },
+  {
+    "name": "Dehradun",
+    "state": "Uttarakhand",
+    "aqi": 96
+  },
+  {
+    "name": "Haridwar",
+    "state": "Uttarakhand",
+    "aqi": 124
+  },
+  {
+    "name": "Shimla",
+    "state": "Himachal Pradesh",
+    "aqi": 54
+  },
+  {
+    "name": "Srinagar",
+    "state": "Jammu & Kashmir",
+    "aqi": 86
+  },
+  {
+    "name": "Jammu",
+    "state": "Jammu & Kashmir",
+    "aqi": 98
+  },
+  {
+    "name": "Panaji",
+    "state": "Goa",
+    "aqi": 54
+  },
+  {
+    "name": "Puducherry",
+    "state": "Puducherry",
+    "aqi": 70
+  },
+  {
+    "name": "Port Blair",
+    "state": "Andaman & Nicobar",
+    "aqi": 38
+  }
+]

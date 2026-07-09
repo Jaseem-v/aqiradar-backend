@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Coway AirMega 150",
+    "cadr": 303,
+    "price": 15999,
+    "coverage": 355,
+    "filter": "H13"
+  },
+  {
+    "name": "Philips AC1715",
+    "cadr": 300,
+    "price": 17999,
+    "coverage": 360,
+    "filter": "H13"
+  },
+  {
+    "name": "MI Air Purifier 4",
+    "cadr": 400,
+    "price": 12999,
+    "coverage": 500,
+    "filter": "H13"
+  },
+  {
+    "name": "Dyson Big+Quiet",
+    "cadr": 434,
+    "price": 54999,
+    "coverage": 700,
+    "filter": "H13"
+  }
+]
