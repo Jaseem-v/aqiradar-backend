@@ -40,6 +40,33 @@ export const postCreate = z.object({
 });
 export const postUpdate = postCreate.partial();
 
+// ---- Category ----
+export const categoryCreate = z.object({
+  name: z.string().min(1).max(80),
+  slug: z.string().optional(),
+  description: z.string().max(300).optional(),
+  image: z.string().url().optional().or(z.literal("")),
+  order: z.number().int().optional(),
+  active: z.boolean().optional(),
+});
+export const categoryUpdate = categoryCreate.partial();
+
+// ---- Product ----
+export const productCreate = z.object({
+  name: z.string().min(1).max(160),
+  slug: z.string().optional(),
+  image: z.string().url().optional().or(z.literal("")),
+  link: z.string().url().optional().or(z.literal("")),
+  description: z.string().optional(),
+  excerpt: z.string().max(240).optional(),
+  price: z.number().nonnegative().optional(),
+  category: z.string().optional(),
+  brand: z.string().optional(),
+  active: z.boolean().optional(),
+  featured: z.boolean().optional(),
+});
+export const productUpdate = productCreate.partial();
+
 // ---- User ----
 export const userCreate = z.object({
   name: z.string().min(1),

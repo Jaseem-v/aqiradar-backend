@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { User, hashPassword } from "./models/User.js";
 import { Purifier } from "./models/Purifier.js";
 import { City } from "./models/City.js";
+import { Category } from "./models/Category.js";
 import purifiers from "./data/purifiers.json" with { type: "json" };
 import cities from "./data/cities.json" with { type: "json" };
 
@@ -42,6 +43,20 @@ async function seed() {
     console.log(`✔ Seeded ${cities.length} cities`);
   } else {
     console.log(`• Cities already present (${cityCount}), skipping`);
+  }
+
+  // --- Categories ---
+  const categoryCount = await Category.countDocuments();
+  if (categoryCount === 0) {
+    await Category.insertMany([
+      { name: "Air Purifiers", slug: "air-purifiers", order: 1, description: "HEPA and carbon purifiers for every room size." },
+      { name: "Air Monitors", slug: "air-monitors", order: 2, description: "Real-time PM2.5, CO₂ and AQI monitors." },
+      { name: "Face Masks", slug: "face-masks", order: 3, description: "N95 and pollution masks for outdoor protection." },
+      { name: "Purify Greens", slug: "purify-greens", order: 4, description: "Air-purifying indoor plants." },
+    ]);
+    console.log("✔ Seeded 4 categories");
+  } else {
+    console.log(`• Categories already present (${categoryCount}), skipping`);
   }
 
   await mongoose.connection.close();

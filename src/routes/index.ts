@@ -6,6 +6,8 @@ import { resourceRouter } from "./resource.js";
 import { Post } from "../models/Post.js";
 import { Purifier } from "../models/Purifier.js";
 import { City } from "../models/City.js";
+import { Product } from "../models/Product.js";
+import { Category } from "../models/Category.js";
 import {
   postCreate,
   postUpdate,
@@ -13,6 +15,10 @@ import {
   purifierUpdate,
   cityCreate,
   cityUpdate,
+  productCreate,
+  productUpdate,
+  categoryCreate,
+  categoryUpdate,
 } from "../validation/schemas.js";
 
 const router = Router();
@@ -48,6 +54,26 @@ router.use(
     updateSchema: cityUpdate,
     searchFields: ["name", "state"],
     defaultSort: "name",
+  })
+);
+
+router.use(
+  "/products",
+  resourceRouter(Product, {
+    createSchema: productCreate,
+    updateSchema: productUpdate,
+    searchFields: ["name", "category", "brand"],
+    defaultSort: "-createdAt",
+  })
+);
+
+router.use(
+  "/categories",
+  resourceRouter(Category, {
+    createSchema: categoryCreate,
+    updateSchema: categoryUpdate,
+    searchFields: ["name", "slug"],
+    defaultSort: "order",
   })
 );
 
