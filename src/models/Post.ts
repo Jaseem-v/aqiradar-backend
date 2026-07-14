@@ -13,7 +13,7 @@ const postSchema = new Schema(
   {
     title: { type: String, required: true, trim: true, maxlength: 120 },
     slug: { type: String, required: true, unique: true, index: true, trim: true },
-    excerpt: { type: String, maxlength: 220 },
+    excerpt: { type: String },
     // Rich text stored as HTML/markdown string for the standalone stack.
     body: { type: String, default: "" },
     coverImage: { type: String }, // URL

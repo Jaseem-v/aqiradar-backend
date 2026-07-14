@@ -26,7 +26,7 @@ export const cityUpdate = cityCreate.partial();
 export const postCreate = z.object({
   title: z.string().min(1).max(120),
   slug: z.string().optional(),
-  excerpt: z.string().max(220).optional(),
+  excerpt: z.string().optional(),
   body: z.string().optional(),
   coverImage: z.string().url().optional().or(z.literal("")),
   author: z
