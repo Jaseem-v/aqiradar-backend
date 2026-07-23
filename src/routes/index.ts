@@ -8,6 +8,9 @@ import { Purifier } from "../models/Purifier.js";
 import { City } from "../models/City.js";
 import { Product } from "../models/Product.js";
 import { Category } from "../models/Category.js";
+import { Brand } from "../models/Brand.js";
+import { Facet } from "../models/Facet.js";
+import { Comparison } from "../models/Comparison.js";
 import {
   postCreate,
   postUpdate,
@@ -19,6 +22,12 @@ import {
   productUpdate,
   categoryCreate,
   categoryUpdate,
+  brandCreate,
+  brandUpdate,
+  facetCreate,
+  facetUpdate,
+  comparisonCreate,
+  comparisonUpdate,
 } from "../validation/schemas.js";
 
 const router = Router();
@@ -74,6 +83,36 @@ router.use(
     updateSchema: categoryUpdate,
     searchFields: ["name", "slug"],
     defaultSort: "order",
+  })
+);
+
+router.use(
+  "/brands",
+  resourceRouter(Brand, {
+    createSchema: brandCreate,
+    updateSchema: brandUpdate,
+    searchFields: ["name", "slug"],
+    defaultSort: "order",
+  })
+);
+
+router.use(
+  "/facets",
+  resourceRouter(Facet, {
+    createSchema: facetCreate,
+    updateSchema: facetUpdate,
+    searchFields: ["name", "slug", "category", "kind"],
+    defaultSort: "order",
+  })
+);
+
+router.use(
+  "/comparisons",
+  resourceRouter(Comparison, {
+    createSchema: comparisonCreate,
+    updateSchema: comparisonUpdate,
+    searchFields: ["slug", "category", "a", "b"],
+    defaultSort: "-createdAt",
   })
 );
 

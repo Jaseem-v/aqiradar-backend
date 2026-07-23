@@ -40,18 +40,30 @@ export const postCreate = z.object({
 });
 export const postUpdate = postCreate.partial();
 
+const FACET_KINDS = ["budget", "rooms", "health", "cities", "use-case", "brands", "models"] as const;
+
 // ---- Category ----
 export const categoryCreate = z.object({
   name: z.string().min(1).max(80),
   slug: z.string().optional(),
   description: z.string().max(300).optional(),
   image: z.string().url().optional().or(z.literal("")),
+  icon: z.string().optional(),
+  kind: z.enum(["product", "filter"]).optional(),
+  metricPrimaryLabel: z.string().optional(),
+  metricPrimaryUnit: z.string().optional(),
+  metricSecondaryLabel: z.string().optional(),
+  metricSecondaryUnit: z.string().optional(),
+  facets: z.array(z.enum(FACET_KINDS)).optional(),
   order: z.number().int().optional(),
   active: z.boolean().optional(),
 });
 export const categoryUpdate = categoryCreate.partial();
 
 // ---- Product ----
+const specRow = z.object({ label: z.string(), value: z.string() });
+const faqRow = z.object({ q: z.string(), a: z.string() });
+
 export const productCreate = z.object({
   name: z.string().min(1).max(160),
   slug: z.string().optional(),
@@ -64,8 +76,63 @@ export const productCreate = z.object({
   brand: z.string().optional(),
   active: z.boolean().optional(),
   featured: z.boolean().optional(),
+  rating: z.number().min(0).max(5).optional(),
+  metricPrimary: z.string().optional(),
+  metricSecondary: z.string().optional(),
+  cadr: z.number().nonnegative().optional(),
+  coverage: z.number().nonnegative().optional(),
+  electricityCost: z.number().nonnegative().optional(),
+  filterCost: z.number().nonnegative().optional(),
+  specs: z.array(specRow).optional(),
+  pros: z.array(z.string()).optional(),
+  cons: z.array(z.string()).optional(),
+  faq: z.array(faqRow).optional(),
+  rooms: z.array(z.string()).optional(),
+  health: z.array(z.string()).optional(),
+  cities: z.array(z.string()).optional(),
+  useCases: z.array(z.string()).optional(),
+  fits: z.array(z.string()).optional(),
 });
 export const productUpdate = productCreate.partial();
+
+// ---- Brand ----
+export const brandCreate = z.object({
+  name: z.string().min(1).max(80),
+  slug: z.string().optional(),
+  logo: z.string().url().optional().or(z.literal("")),
+  description: z.string().optional(),
+  excerpt: z.string().max(240).optional(),
+  pros: z.array(z.string()).optional(),
+  cons: z.array(z.string()).optional(),
+  order: z.number().int().optional(),
+  active: z.boolean().optional(),
+});
+export const brandUpdate = brandCreate.partial();
+
+// ---- Facet ----
+export const facetCreate = z.object({
+  kind: z.enum(["budget", "rooms", "health", "use-case", "models", "brands"]),
+  category: z.string().min(1),
+  slug: z.string().optional(),
+  name: z.string().min(1),
+  intro: z.string().optional(),
+  criteria: z.record(z.string(), z.unknown()).optional(),
+  order: z.number().int().optional(),
+  active: z.boolean().optional(),
+});
+export const facetUpdate = facetCreate.partial();
+
+// ---- Comparison ----
+export const comparisonCreate = z.object({
+  category: z.string().min(1),
+  a: z.string().min(1),
+  b: z.string().min(1),
+  slug: z.string().optional(),
+  verdict: z.string().optional(),
+  featured: z.boolean().optional(),
+  active: z.boolean().optional(),
+});
+export const comparisonUpdate = comparisonCreate.partial();
 
 // ---- User ----
 export const userCreate = z.object({
