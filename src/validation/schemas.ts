@@ -14,9 +14,15 @@ export const purifierUpdate = purifierCreate.partial();
 // ---- City ----
 export const cityCreate = z.object({
   name: z.string().min(1),
+  slug: z.string().optional(),
   state: z.string().min(1),
   aqi: z.number().min(0).max(500),
   pm25: z.number().min(0).optional(),
+  intro: z.string().optional(),
+  content: z.string().optional(),
+  image: z.string().url().optional().or(z.literal("")),
+  seoTitle: z.string().max(70).optional(),
+  seoDescription: z.string().max(160).optional(),
   active: z.boolean().optional(),
   lastUpdated: z.coerce.date().optional(),
 });
@@ -115,7 +121,12 @@ export const facetCreate = z.object({
   category: z.string().min(1),
   slug: z.string().optional(),
   name: z.string().min(1),
+  heading: z.string().optional(),
   intro: z.string().optional(),
+  content: z.string().optional(),
+  image: z.string().url().optional().or(z.literal("")),
+  seoTitle: z.string().max(70).optional(),
+  seoDescription: z.string().max(160).optional(),
   criteria: z.record(z.string(), z.unknown()).optional(),
   order: z.number().int().optional(),
   active: z.boolean().optional(),

@@ -31,8 +31,15 @@ const facetSchema = new Schema(
     category: { type: String, required: true, trim: true, index: true, default: "all" },
     slug: { type: String, trim: true, index: true },
     name: { type: String, required: true, trim: true },
+    // Optional H1 override (defaults to a generated "Best <cat> for <name>").
+    heading: { type: String, default: "" },
     // Unique intro copy shown at the top of the facet page (keeps it off thin-content).
     intro: { type: String, default: "" },
+    // Rich editorial body (HTML from the admin editor) rendered below the picks.
+    content: { type: String, default: "" },
+    image: { type: String, default: "" },
+    seoTitle: { type: String, maxlength: 70, default: "" },
+    seoDescription: { type: String, maxlength: 160, default: "" },
     // Query criteria applied to products, e.g. { maxPrice: 10000, minCadr: 200 }.
     criteria: { type: Schema.Types.Mixed, default: {} },
     order: { type: Number, default: 0 },

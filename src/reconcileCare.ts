@@ -14,6 +14,16 @@ import mongoose from "mongoose";
 import { connectDB } from "./config/db.js";
 import { Category } from "./models/Category.js";
 import { Product } from "./models/Product.js";
+import { City } from "./models/City.js";
+
+function formatSlug(value: string): string {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
 
 // legacy slug -> canonical slug the products should live under
 const MERGES: Record<string, string> = {
@@ -69,6 +79,16 @@ async function run() {
     await Category.updateOne({ slug }, { $set: { order } });
   }
   console.log("✔ Normalised canonical category order");
+
+  // 3b. Backfill slugs on existing city rows (added for the city facet pages).
+  const citiesNoSlug = await City.find({ $or: [{ slug: { $exists: false } }, { slug: "" }] });
+  let citySlugs = 0;
+  for (const c of citiesNoSlug) {
+    c.set("slug", formatSlug(c.get("name") as string));
+    await c.save();
+    citySlugs++;
+  }
+  if (citySlugs) console.log(`✔ Backfilled ${citySlugs} city slugs`);
 
   // 4. Remove redundant / empty legacy category rows.
   const remaining = await Product.distinct("category", { category: { $in: REMOVE } });

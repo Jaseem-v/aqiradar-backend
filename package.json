@@ -11,6 +11,7 @@
     "seed": "tsx src/seed.ts",
     "care:seed": "tsx src/seedCare.ts",
     "care:reconcile": "tsx src/reconcileCare.ts",
+    "care:content": "tsx src/seedCareContent.ts",
     "backfill": "tsx src/backfill.ts"
   },
   "dependencies": {
