@@ -17,6 +17,8 @@ const categorySchema = new Schema(
     image: { type: String, default: "" },
     // Emoji / short icon shown on the hub + facet tiles.
     icon: { type: String, default: "" },
+    // Short label shown under the name on the "browse by category" cards.
+    tagline: { type: String, default: "" },
     // "product" = normal reviewable product; "filter" = replacement part
     // (compatibility-driven — facets become brand/model instead of budget/city).
     kind: { type: String, enum: ["product", "filter"], default: "product" },

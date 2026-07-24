@@ -11,6 +11,8 @@ import { connectDB } from "./config/db.js";
 import { Facet } from "./models/Facet.js";
 import { City } from "./models/City.js";
 import { Product } from "./models/Product.js";
+import { Category } from "./models/Category.js";
+import { Brand } from "./models/Brand.js";
 
 const CAT = "air-purifiers";
 
@@ -137,37 +139,60 @@ const FACETS: FacetSeed[] = [
 ];
 
 // ---- city content (upsert by name; also ensures the city exists) ----
-type CitySeed = { name: string; state: string; aqi: number; intro: string; content: string; seoTitle?: string };
+type CitySeed = {
+  name: string; state: string; aqi: number; intro: string; content: string; seoTitle?: string;
+  recommendedCadr: string; bestTimeToBuy: string; pollutants: string; healthImpact: string; whoAtRisk: string;
+};
 const CITIES: CitySeed[] = [
   {
     name: "Delhi", state: "Delhi", aqi: 312,
     intro: "Delhi has India's most severe winter air — you need high-CADR purifiers with a carbon stage.",
     content:
       "<h2>Delhi's air, month by month</h2><p>From October to February, stubble smoke and cold-weather inversion push Delhi into the <strong>severe</strong> band, often past AQI 400. Summer is better but dust keeps PM10 high.</p><h3>What to buy for Delhi</h3><ul><li>Minimum 200 m³/h CADR, ideally more for living rooms.</li><li>An activated-carbon stage for smoke and traffic gases.</li><li>Run it continuously through the winter peak.</li></ul>",
+    recommendedCadr: "250–400 m³/h", bestTimeToBuy: "September – before the winter peak",
+    pollutants: "PM2.5, stubble smoke, vehicle emissions, construction and road dust.",
+    healthImpact: "Severe winter air triggers coughing, breathing difficulty and eye irritation for most people.",
+    whoAtRisk: "Children, the elderly, pregnant women and anyone with asthma or heart conditions.",
   },
   {
     name: "Mumbai", state: "Maharashtra", aqi: 156,
     intro: "Mumbai's coastal air is milder than the north, but winter and construction dust still push PM2.5 up.",
     content:
       "<h2>Humidity, dust and traffic</h2><p>Sea breeze helps Mumbai avoid Delhi's extremes, but dense traffic and year-round construction keep PM2.5 in the <strong>moderate-to-poor</strong> range, worst in winter mornings.</p><p>A mid-range HEPA purifier for the bedroom handles most of it; add carbon if you're near a busy road.</p>",
+    recommendedCadr: "180–300 m³/h", bestTimeToBuy: "October – December",
+    pollutants: "PM2.5, construction dust, vehicle exhaust and coastal humidity-borne particles.",
+    healthImpact: "Can aggravate allergies and asthma, especially on still winter mornings.",
+    whoAtRisk: "People with asthma or allergies, young children and the elderly.",
   },
   {
     name: "Bangalore", state: "Karnataka", aqi: 92,
     intro: "Bangalore has some of the cleaner big-city air in India, but traffic corridors still spike.",
     content:
       "<h2>Cleaner, but not clean</h2><p>Bangalore usually sits in the <strong>satisfactory-to-moderate</strong> band thanks to its elevation and greenery. The exception is traffic-heavy corridors and dry-season dust.</p><p>A compact purifier is enough for most homes here — focus on the bedroom and any room facing a main road.</p>",
+    recommendedCadr: "130–220 m³/h", bestTimeToBuy: "Any time — prices dip in mid-year sales",
+    pollutants: "Vehicle exhaust along traffic corridors and seasonal road dust.",
+    healthImpact: "Generally mild; sensitive people may notice irritation near busy roads.",
+    whoAtRisk: "Allergy sufferers and those living on main traffic routes.",
   },
   {
     name: "Kolkata", state: "West Bengal", aqi: 188,
     intro: "Kolkata's winters bring poor air from vehicular and industrial sources plus regional smoke.",
     content:
       "<h2>A tough winter for the east</h2><p>Kolkata's PM2.5 climbs into the <strong>poor</strong> band each winter, driven by traffic, industry and regional crop-burning smoke drifting in. Humidity makes it feel worse.</p><p>Choose a purifier with solid CADR and a carbon layer, and keep bedrooms sealed and filtered overnight.</p>",
+    recommendedCadr: "200–320 m³/h", bestTimeToBuy: "September – November",
+    pollutants: "PM2.5, industrial emissions, vehicle exhaust and regional crop-burning smoke.",
+    healthImpact: "Winter air worsens coughs, allergies and fatigue.",
+    whoAtRisk: "Children, the elderly and people with respiratory conditions.",
   },
   {
     name: "Hyderabad", state: "Telangana", aqi: 118,
     intro: "Hyderabad's air is moderate for most of the year, worsening with winter dust and traffic.",
     content:
       "<h2>Moderate, with winter spikes</h2><p>Hyderabad generally sits in the <strong>moderate</strong> band, with construction and vehicular dust the main culprits. Winter mornings see the highest PM2.5.</p><p>A mid-range HEPA unit for the bedroom covers most households comfortably.</p>",
+    recommendedCadr: "150–260 m³/h", bestTimeToBuy: "October – December",
+    pollutants: "PM2.5, construction dust, vehicle emissions, pollen and smoke.",
+    healthImpact: "May cause breathing issues, allergies, tiredness and irritation.",
+    whoAtRisk: "Kids, the elderly, pregnant women and people with asthma.",
   },
 ];
 
@@ -179,8 +204,131 @@ const TAGS: { slug: string; rooms?: string[]; health?: string[]; cities?: string
   { slug: "xiaomi-smart-4", cities: ["hyderabad"] },
 ];
 
+// ---- category taglines ----
+const TAGLINES: Record<string, string> = {
+  "air-purifiers": "Best sellers",
+  "aqi-monitors": "Track air quality",
+  masks: "Stay protected",
+  "hepa-filters": "Replacement",
+  "purify-greens": "Natural care",
+};
+
+// ---- brand highlights ----
+const HIGHLIGHTS: Record<string, { title: string; text: string }[]> = {
+  xiaomi: [
+    { title: "Innovation", text: "Smart Mi Home app and modern design" },
+    { title: "Performance", text: "Class-leading CADR for the price" },
+    { title: "Reliability", text: "Trusted by millions worldwide" },
+    { title: "Value", text: "Premium features at fair prices" },
+  ],
+  philips: [
+    { title: "Trusted", text: "Widest service network in India" },
+    { title: "Smart sensing", text: "Reliable auto mode and PM2.5 display" },
+    { title: "Filtration", text: "NanoProtect HEPA filtration" },
+    { title: "Support", text: "Easy service and spare availability" },
+  ],
+  coway: [
+    { title: "Carbon filtration", text: "Best-in-class odour and smoke removal" },
+    { title: "Build quality", text: "Premium, durable construction" },
+    { title: "Coverage", text: "Strong airflow for larger rooms" },
+    { title: "Longevity", text: "Long filter life" },
+  ],
+  levoit: [
+    { title: "Value", text: "Best entry-level price in India" },
+    { title: "Quiet", text: "Near-silent sleep modes" },
+    { title: "Availability", text: "Cheap, widely stocked filters" },
+    { title: "Compact", text: "Fits any desk or bedside" },
+  ],
+  dyson: [
+    { title: "Whole-room", text: "Projects clean air across open spaces" },
+    { title: "Engineering", text: "Combined HEPA + carbon filtration" },
+    { title: "Design", text: "Premium, distinctive form" },
+    { title: "Sensing", text: "Detailed real-time air data" },
+  ],
+};
+
+// ---- product commerce details (images, offers, scores, features) ----
+const AMAZON = "https://www.amazon.in";
+const FLIPKART = "https://www.flipkart.com";
+const PRODUCT_DETAILS: Record<string, Record<string, unknown>> = {
+  "xiaomi-smart-4": {
+    image: "/product-1.webp",
+    images: ["/product-1.webp", "/prodcut-2.webp", "/prodcut-3.webp"],
+    mrp: 16999, reviewCount: 245, warranty: "1 year",
+    features: ["Smart App", "Auto Mode", "HEPA H13", "Night Mode", "Sleep Timer", "PM2.5 Display"],
+    offers: [{ retailer: "Amazon", url: AMAZON }, { retailer: "Flipkart", url: FLIPKART }],
+    scores: [
+      { label: "Air Purification (PM2.5)", value: 9.2 },
+      { label: "Coverage", value: 9.0 },
+      { label: "Noise Control", value: 8.4 },
+      { label: "Energy Efficiency", value: 8.6 },
+      { label: "Value for Money", value: 8.8 },
+    ],
+  },
+  "levoit-core-mini": {
+    image: "/prodcut-2.webp",
+    mrp: 6999, reviewCount: 186, warranty: "1 year",
+    features: ["HEPA H13", "Night Mode", "Compact", "Aroma Pad"],
+    offers: [{ retailer: "Amazon", url: AMAZON }, { retailer: "Flipkart", url: FLIPKART }],
+    scores: [
+      { label: "Air Purification (PM2.5)", value: 8.0 },
+      { label: "Coverage", value: 6.8 },
+      { label: "Noise Control", value: 9.0 },
+      { label: "Energy Efficiency", value: 9.2 },
+      { label: "Value for Money", value: 9.4 },
+    ],
+  },
+  "coway-airmega-150": {
+    image: "/prodcut-3.webp",
+    mrp: 22900, reviewCount: 312, warranty: "1 year",
+    features: ["Green True HEPA", "Activated Carbon", "Auto Mode", "Air Quality Sensor"],
+    offers: [{ retailer: "Amazon", url: AMAZON }, { retailer: "Flipkart", url: FLIPKART }],
+    scores: [
+      { label: "Air Purification (PM2.5)", value: 9.0 },
+      { label: "Coverage", value: 8.6 },
+      { label: "Noise Control", value: 8.8 },
+      { label: "Energy Efficiency", value: 8.4 },
+      { label: "Value for Money", value: 8.6 },
+    ],
+  },
+  "philips-ac1715": {
+    image: "/product-1.webp",
+    mrp: 22995, reviewCount: 196, warranty: "2 years",
+    features: ["NanoProtect HEPA", "Auto Mode", "PM2.5 Display", "Sleep Mode"],
+    offers: [{ retailer: "Amazon", url: AMAZON }, { retailer: "Flipkart", url: FLIPKART }],
+    scores: [
+      { label: "Air Purification (PM2.5)", value: 8.8 },
+      { label: "Coverage", value: 8.4 },
+      { label: "Noise Control", value: 8.2 },
+      { label: "Energy Efficiency", value: 8.6 },
+      { label: "Value for Money", value: 8.2 },
+    ],
+  },
+};
+
 async function run() {
   await connectDB();
+
+  let pd = 0;
+  for (const [slug, details] of Object.entries(PRODUCT_DETAILS)) {
+    const res = await Product.updateOne({ slug }, { $set: details });
+    if (res.matchedCount) pd++;
+  }
+  console.log(`✔ Set commerce details on ${pd} products`);
+
+  let cat = 0;
+  for (const [slug, tagline] of Object.entries(TAGLINES)) {
+    const res = await Category.updateOne({ slug }, { $set: { tagline } });
+    if (res.matchedCount) cat++;
+  }
+  console.log(`✔ Set taglines on ${cat} categories`);
+
+  let bh = 0;
+  for (const [slug, highlights] of Object.entries(HIGHLIGHTS)) {
+    const res = await Brand.updateOne({ slug }, { $set: { highlights } });
+    if (res.matchedCount) bh++;
+  }
+  console.log(`✔ Set highlights on ${bh} brands`);
 
   let f = 0;
   for (const s of FACETS) {
@@ -216,6 +364,11 @@ async function run() {
           intro: city.intro,
           content: city.content,
           seoTitle: city.seoTitle ?? `Best air purifiers for ${city.name}`,
+          recommendedCadr: city.recommendedCadr,
+          bestTimeToBuy: city.bestTimeToBuy,
+          pollutants: city.pollutants,
+          healthImpact: city.healthImpact,
+          whoAtRisk: city.whoAtRisk,
           active: true,
         },
         $setOnInsert: { aqi: city.aqi },

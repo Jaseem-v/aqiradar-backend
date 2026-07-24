@@ -13,16 +13,37 @@ const productSchema = new Schema(
   {
     name: { type: String, required: true, trim: true, maxlength: 160 },
     slug: { type: String, unique: true, index: true, trim: true },
-    // Product image (URL — uploaded via /api/media or an external link)
+    // Primary product image (URL — uploaded via /api/media or an external link)
     image: { type: String, default: "" },
-    // Outbound buy / affiliate / product link
+    // Additional gallery images. The gallery thumbnail strip only shows when
+    // there is more than one image (primary + these).
+    images: { type: [String], default: [] },
+    // Outbound buy / affiliate / product link (fallback if no offers set)
     link: { type: String, default: "" },
+    // Retailer offers shown in the price rail, e.g. { retailer: "Amazon", url }.
+    offers: {
+      type: [{ retailer: { type: String }, url: { type: String } }],
+      default: [],
+    },
     // Rich details (HTML from the admin editor)
     description: { type: String, default: "" },
     // Short one-line tagline shown in listings
     excerpt: { type: String, maxlength: 240 },
     // Price in INR (optional)
     price: { type: Number, min: 0 },
+    // MRP / list price — used to show the discount vs `price`.
+    mrp: { type: Number, min: 0 },
+    // Number of user reviews behind the rating.
+    reviewCount: { type: Number, min: 0 },
+    // Warranty summary shown in the price rail, e.g. "1 year".
+    warranty: { type: String, default: "" },
+    // Feature pills, e.g. "Smart App", "Auto Mode", "Night Mode".
+    features: { type: [String], default: [] },
+    // "Performance at a glance" bars — value out of 10.
+    scores: {
+      type: [{ label: { type: String }, value: { type: Number } }],
+      default: [],
+    },
     category: { type: String, trim: true }, // category slug
     brand: { type: String, trim: true }, // brand slug
     active: { type: Boolean, default: true },

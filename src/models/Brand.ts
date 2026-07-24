@@ -20,6 +20,11 @@ const brandSchema = new Schema(
     excerpt: { type: String, maxlength: 240 },
     pros: { type: [String], default: [] },
     cons: { type: [String], default: [] },
+    // "Brand highlights" cards on the brand page, e.g. { title: "Innovation", text: "…" }.
+    highlights: {
+      type: [{ title: { type: String }, text: { type: String } }],
+      default: [],
+    },
     order: { type: Number, default: 0 },
     active: { type: Boolean, default: true },
   },

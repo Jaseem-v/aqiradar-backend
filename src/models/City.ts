@@ -28,6 +28,13 @@ const citySchema = new Schema(
     seoTitle: { type: String, maxlength: 70, default: "" },
     seoDescription: { type: String, maxlength: 160, default: "" },
 
+    // ---- City air & health guidance (drives the city page cards) ----
+    recommendedCadr: { type: String, default: "" }, // e.g. "150–300 m³/h"
+    bestTimeToBuy: { type: String, default: "" },
+    pollutants: { type: String, default: "" },
+    healthImpact: { type: String, default: "" },
+    whoAtRisk: { type: String, default: "" },
+
     active: { type: Boolean, default: true },
     lastUpdated: { type: Date, default: () => new Date() },
   },
